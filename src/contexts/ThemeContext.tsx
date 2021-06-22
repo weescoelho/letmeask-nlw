@@ -2,7 +2,7 @@ import React, { createContext } from "react";
 import { DefaultTheme } from "styled-components";
 import dark from "../styles/theme/dark";
 import light from "../styles/theme/light";
-import usePersistedState from "../utils/usePersistedState";
+import usePersistedState from "../hooks/usePersistedState";
 
 type ThemeContextType = {
   toggleTheme: () => void;
