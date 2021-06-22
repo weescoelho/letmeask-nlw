@@ -16,11 +16,14 @@ import Input from "../../components/Input";
 import GoogleButton from "../../components/GoogleButton";
 import Button from "../../components/Button";
 import { useAuth } from "../../hooks/useAuth";
+import useMedia from '../../hooks/useMedia'
+
 
 const Home = () => {
   const history = useHistory();
-
+  const mobile = useMedia("(max-width:739px)")
   const {user, signInWithGoogle} = useAuth();
+
 
   const handleCreateRoom = async () => {
     if(!user){
@@ -31,7 +34,8 @@ const Home = () => {
 
   return (
     <AuthPage>
-      <Aside>
+      {!mobile && (
+        <Aside>
         <img
           src={illustration}
           alt="Ilustração simbolizando perguntas e respostas"
@@ -41,6 +45,7 @@ const Home = () => {
           Aprenda e compartilhe conhecimento com outras pessoas
         </Subtitle>
       </Aside>
+      )}
       <AuthFormContainer>
         <div> 
         <LogoPageContainer>

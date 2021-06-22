@@ -14,13 +14,16 @@ import Logo from "../../components/Logo";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useAuth } from "../../hooks/useAuth";
+import useMedia from '../../hooks/useMedia'
 
 const NewRoom: React.FC = () => {
   const { user } = useAuth();
+  const mobile = useMedia("(max-width:739px)")
 
   return (
     <AuthPage>
-      <Aside>
+      {!mobile && (
+        <Aside>
         <img
           src={illustration}
           alt="Ilustração simbolizando perguntas e respostas"
@@ -30,6 +33,7 @@ const NewRoom: React.FC = () => {
           Aprenda e compartilhe conhecimento com outras pessoas
         </Subtitle>
       </Aside>
+      )}
       <AuthFormContainer>
         <div>
           <LogoPageContainer>
