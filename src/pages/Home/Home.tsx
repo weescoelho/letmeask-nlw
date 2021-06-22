@@ -2,6 +2,12 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import illustration from "../../assets/images/illustration.svg";
 import login from "../../assets/images/login.svg";
+import Logo from "../../components/Logo";
+import Input from "../../components/Input";
+import GoogleButton from "../../components/GoogleButton";
+import Button from "../../components/Button";
+import { useAuth } from "../../hooks/useAuth";
+import useMedia from '../../hooks/useMedia'
 import {
   Aside,
   AuthFormContainer,
@@ -11,20 +17,13 @@ import {
   Title,
   LogoPageContainer
 } from "./Home.styled";
-import Logo from "../../components/Logo";
-import Input from "../../components/Input";
-import GoogleButton from "../../components/GoogleButton";
-import Button from "../../components/Button";
-import { useAuth } from "../../hooks/useAuth";
-import useMedia from '../../hooks/useMedia'
 
 
 const Home = () => {
   const history = useHistory();
   const mobile = useMedia("(max-width:739px)")
   const {user, signInWithGoogle} = useAuth();
-
-
+  
   const handleCreateRoom = async () => {
     if(!user){
       await signInWithGoogle();

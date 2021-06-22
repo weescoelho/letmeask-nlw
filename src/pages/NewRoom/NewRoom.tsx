@@ -1,6 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import illustration from "../../assets/images/illustration.svg";
+import Logo from "../../components/Logo";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
+import { useAuth } from "../../hooks/useAuth";
+import useMedia from '../../hooks/useMedia'
 import {
   Aside,
   AuthFormContainer,
@@ -10,11 +15,6 @@ import {
   Title,
   LogoPageContainer,
 } from "./NewRoom.styled";
-import Logo from "../../components/Logo";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
-import { useAuth } from "../../hooks/useAuth";
-import useMedia from '../../hooks/useMedia'
 
 const NewRoom: React.FC = () => {
   const { user } = useAuth();
