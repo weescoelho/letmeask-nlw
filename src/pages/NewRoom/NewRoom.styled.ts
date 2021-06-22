@@ -92,3 +92,9 @@ export const SectionTitle = styled.h2`
   margin-top:56px;
   margin-bottom:24px;
 `
+
+export const LogoPageContainer = styled.div`
+  width: 100%;
+  display: flex !important;
+  align-items: center !important;
+`

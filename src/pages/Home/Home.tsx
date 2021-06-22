@@ -9,6 +9,7 @@ import {
   Separator,
   Subtitle,
   Title,
+  LogoPageContainer
 } from "./Home.styled";
 import Logo from "../../components/Logo";
 import Input from "../../components/Input";
@@ -41,8 +42,10 @@ const Home = () => {
         </Subtitle>
       </Aside>
       <AuthFormContainer>
-        <div>
-          <Logo width={150} />
+        <div> 
+        <LogoPageContainer>
+            <Logo />
+          </LogoPageContainer>
           <GoogleButton onClick={handleCreateRoom}>
             Crie sua sala com o Google
           </GoogleButton>

@@ -18,8 +18,8 @@ const SwitchButton: React.FC<Props> = ({ toggleTheme }) => {
       height={20}
       width={40}
       handleDiameter={20}
-      offColor={colors.primary}
-      onColor={colors.text}
+      offColor='#E559F9'
+      onColor={colors.primary}
     />
   );
 };

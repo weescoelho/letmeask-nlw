@@ -51,6 +51,7 @@ export const AuthFormContainer = styled.main`
     max-width: 320px;
     align-items: stretch;
     text-align: center;
+    justify-content: center;
   }
 `;
 
@@ -74,4 +75,9 @@ export const Separator = styled.div`
     background:#A8A8B3;
     margin-left: 16px;
   }
+`
+export const LogoPageContainer = styled.div`
+  width: 100%;
+  display: flex !important;
+  align-items: center !important;
 `

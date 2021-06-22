@@ -17,6 +17,7 @@ const InputElement = styled.input`
   padding: 0 16px;
   background: ${({ theme }) => theme.colors.secondary};
   border: 1px solid #a8a8d3;
+  color:${({ theme }) => theme.colors.text};
 `;
 
 export default Input;

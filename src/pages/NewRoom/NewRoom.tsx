@@ -8,13 +8,14 @@ import {
   SectionTitle,
   Subtitle,
   Title,
+  LogoPageContainer,
 } from "./NewRoom.styled";
 import Logo from "../../components/Logo";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useAuth } from "../../hooks/useAuth";
 
-const NewRoom = () => {
+const NewRoom: React.FC = () => {
   const { user } = useAuth();
 
   return (
@@ -31,7 +32,9 @@ const NewRoom = () => {
       </Aside>
       <AuthFormContainer>
         <div>
-          <Logo width={150} />
+          <LogoPageContainer>
+            <Logo />
+          </LogoPageContainer>
           <SectionTitle>Crie uma nova sala</SectionTitle>
           <form>
             <Input type="text" placeholder="Nome da sala" />
