@@ -1,10 +1,14 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+
 `
 export const Content = styled.main`
   max-width: 800px;
   margin: 0 auto;
+  @media (max-width:739px){
+    max-width: 300px;
+  }
   
 `
 export const RoomTitleContainer = styled.div`
@@ -25,7 +29,7 @@ export const FormFooter = styled.div`
       background: transparent;
       width: fit-content !important;
       border:none;
-      color:${({theme}) => theme.title === 'light' ? theme.colors.primary : '#D67EE2'};
+      color:${({ theme }) => theme.title === 'light' ? theme.colors.primary : '#D67EE2'};
       text-decoration:underline;
       font-size:1.4rem;
       font-weight: 500;

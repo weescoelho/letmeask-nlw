@@ -32,6 +32,7 @@ const Button = styled.button`
   cursor:pointer;
   display: flex;
   align-items: center;
+  margin-right:16px;
   span{
     display: block;
     align-self: center;
@@ -40,6 +41,9 @@ const Button = styled.button`
     width: 230px;
     font-size:1.4rem;
     font-weight:500;
+    @media (max-width:739px){
+      width: 130px;
+    }
   }
 `;
 const ImageWrapper = styled.div`

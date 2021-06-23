@@ -19,8 +19,8 @@ const Header = () => {
       <Content>
         <Logo width={"100"} />
         <Wrapper>
-          <RoomCode code={params.id} />
-          <SwitchButton toggleTheme={toggleTheme} />
+          <RoomCode code={params.id}/>
+          <SwitchButton toggleTheme={toggleTheme}/>
         </Wrapper>
       </Content>
     </Container>
@@ -30,6 +30,9 @@ const Header = () => {
 const Container = styled.header`
   padding: 24px 0 0 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
+  @media (max-width:739px){
+    padding: 24px 0 24px 0;
+  }
 `;
 
 const Content = styled.div`
@@ -38,6 +41,13 @@ const Content = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width:739px){
+    max-width: 290px;
+    flex-direction: column;
+  }
+  @media (min-width:739px) and (max-width:989px){
+    max-width: 640px;
+  }
 `;
 
 const Wrapper = styled.div`
