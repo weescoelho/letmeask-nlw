@@ -1,13 +1,12 @@
-import React from "react";
+import React, { InputHTMLAttributes } from "react";
 import styled from "styled-components";
 
-interface Props {
-  placeholder?: string;
-  type: string;
-}
 
-const Input: React.FC<Props> = ({ placeholder, type = "text" }) => {
-  return <InputElement type={type} placeholder={placeholder} />;
+
+type ButtonProps = InputHTMLAttributes<HTMLInputElement>
+
+const Input: React.FC<ButtonProps> = ({ placeholder,  ...props } : ButtonProps) => {
+  return <InputElement placeholder={placeholder} {...props}/>;
 };
 
 const InputElement = styled.input`
