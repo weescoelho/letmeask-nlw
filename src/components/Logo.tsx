@@ -2,15 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import { ThemeContext } from "../contexts/ThemeContext";
 
+type Props = {
+  width?:string
+}
 
-const Logo: React.FC = () => {
+const Logo: React.FC<Props> = ({width = '157'}) => {
 
   const {theme} = React.useContext(ThemeContext)
 
   return (
     <>
       <svg
-        width="157"
+        width={width}
         height="75"
         viewBox="0 0 157 75"
         fill="none"
