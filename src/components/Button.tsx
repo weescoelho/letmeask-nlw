@@ -3,23 +3,27 @@ import styled from "styled-components";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
 
-const Button: React.FC<ButtonProps> = ({children, ...props } : ButtonProps) => {
+interface IButton extends ButtonProps {
+  outline?:boolean;
+}
+
+const Button: React.FC<IButton> = ({children, outline, ...props } : IButton) => {
   return (
-    <ButtonElement {...props}>
+    <ButtonElement outline={outline} {...props}>
       {children}
     </ButtonElement>
   );
 };
 
-const ButtonElement = styled.button`
+const ButtonElement = styled.button<IButton>`
   width: 100%;
   height: 50px;
   border-radius:8px;
   font-weight:500;
-  background:${({theme}) => theme.colors.primary};
-  color:#fff;
+  background:${({theme, outline}) => outline ? 'transparent' : theme.colors.primary };
+  border: 1px solid ${({theme}) => theme.colors.primary};
+  color:${({theme,outline}) => outline ? theme.colors.primary : '#fff'};
   cursor: pointer;
-  border:none;
   display: flex;
   align-items: center;
   justify-content: center;
