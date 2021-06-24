@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { database } from "../services/firebase";
 import UserInfo from "./UserInfo";
 import deleteImg from "../assets/images/delete.svg";
+import ModalDelete from "../components/ModalDelete";
 
 type QuestionProps = {
   admin: boolean;
@@ -36,6 +37,9 @@ const Question = ({
   likeCount,
   likeId,
 }: QuestionProps) => {
+  const [openModal, setOpenModal] = React.useState(false);
+
+
   const handleLikeQuestion = async (
     questionId?: string,
     likeId?: string | undefined,
@@ -52,12 +56,17 @@ const Question = ({
   };
 
   const handleDeleteQuestion = async (questionId?: string) => {
-    if (window.confirm("Tem certeza que você deseja excluir essa pergunta?")) {
-      await database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
-    }
+    setOpenModal(true);
   };
+
   return (
     <Container>
+      <ModalDelete
+        open={openModal}
+        setOpenModal={setOpenModal}
+        questionId={questionId}
+        roomId={roomId}
+      />
       <Content>{content}</Content>
       <Footer>
         <WrapperUserInfo>

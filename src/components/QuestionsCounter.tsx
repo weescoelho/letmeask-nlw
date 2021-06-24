@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.span`
   margin-left: 16px;
-  background: #e559f9;
+  background: #FC7753;
   border-radius: 9999px;
   padding: 8px 16px;
   color: #fff;
