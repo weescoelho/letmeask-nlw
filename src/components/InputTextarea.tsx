@@ -8,6 +8,7 @@ const Textarea = styled.textarea`
   border: 0;
   padding: 16px;
   border-radius: 8px;
+  color:${({theme}) => theme.colors.text};
   background: ${({ theme }) => theme.colors.secondary};
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   resize: vertical;
