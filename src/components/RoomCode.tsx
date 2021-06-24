@@ -32,7 +32,6 @@ const Button = styled.button`
   cursor:pointer;
   display: flex;
   align-items: center;
-  margin-right:16px;
   span{
     display: block;
     align-self: center;
