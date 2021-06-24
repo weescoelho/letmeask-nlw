@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const useMedia = (media: string) => {
   const [match, setMatch] = React.useState<boolean>();
 
