@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -6,11 +5,11 @@ type Props = {
   username: string;
 };
 
-const UserInfo = (props: Props) => {
+const UserInfo = ({avatar, username}: Props) => {
   return (
     <Wrapper>
-      <img src={props.avatar} alt={props.username} />
-      <span>{props.username}</span>
+      <img src={avatar} alt={username} />
+      <span>{username}</span>
     </Wrapper>
   );
 };
