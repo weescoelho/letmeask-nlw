@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const Title = styled.h1`
   font-family: 'Poppins', sans-serif;
-  font-size:24px;
+  font-size:2.4rem;
   color:${({theme}) => theme.colors.text};
 `
 type Props = {

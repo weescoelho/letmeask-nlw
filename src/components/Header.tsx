@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 import styled from "styled-components";
 import { ThemeContext } from "../contexts/ThemeContext";
 import useMedia from "../hooks/useMedia";
@@ -8,6 +9,7 @@ import Button from "./Button";
 import Logo from "./Logo";
 import RoomCode from "./RoomCode";
 import SwitchButton from "./SwitchButton";
+import ModalDeleteRoom from "../components/ModalDeleteRoom";
 
 type RoomParams = {
   id: string;
@@ -15,24 +17,33 @@ type RoomParams = {
 
 type HeaderProps = {
   admin: boolean;
-  roomId?:string;
+  roomId?: string;
 };
 
-const Header = ({admin,roomId}: HeaderProps) => {
-  const history = useHistory();
+const Header = ({ admin, roomId }: HeaderProps) => {
   const { toggleTheme } = React.useContext(ThemeContext);
   const params = useParams<RoomParams>();
-  const mobile = useMedia('(max-width:739px)')
-
-  const handleEndRoom = async () => {
-    await database.ref(`rooms/${roomId}`).update({
-      endedAt:new Date(),
-    })
-    history.push('/')
-  }
+  const mobile = useMedia("(max-width:739px)");
+  const [openModal, setOpenModal] = React.useState(false);
+  
+  // const handleEndRoom = async () => {
+  //   await database.ref(`rooms/${roomId}`).update({
+  //     endedAt: new Date(),
+  //   });
+  //   addToast("A sala foi encerrada com sucesso!", {
+  //     appearance: "success",
+  //     autoDismiss: true,
+  //   });
+  //   history.push("/");
+  // };
 
   return (
     <Container>
+      <ModalDeleteRoom
+        setOpenModal={setOpenModal}
+        open={openModal}
+        roomId={roomId}
+      />
       <Content>
         <LogoWrapper>
           <Logo width={"100"} />
@@ -43,8 +54,8 @@ const Header = ({admin,roomId}: HeaderProps) => {
           {admin && (
             <Button
               outline
-              style={{ width: "160px", height: "40px"}}
-              onClick={handleEndRoom}
+              style={{ width: "160px", height: "40px" }}
+              onClick={() => setOpenModal(true)}
             >
               Encerrar sala
             </Button>
@@ -83,7 +94,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap:16px;
+  gap: 16px;
 `;
 
 const LogoWrapper = styled.div`
@@ -93,4 +104,4 @@ const LogoWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export default Header;
+export default React.memo(Header);

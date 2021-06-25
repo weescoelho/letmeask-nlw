@@ -20,6 +20,7 @@ const ButtonElement = styled.button<IButton>`
   height: 50px;
   border-radius:8px;
   font-weight:500;
+  font-size:1.6rem;
   background:${({theme, outline}) => outline ? 'transparent' : theme.colors.primary };
   border: 1px solid ${({theme}) => theme.colors.primary};
   color:${({theme,outline}) => outline ? theme.colors.primary : '#fff'};

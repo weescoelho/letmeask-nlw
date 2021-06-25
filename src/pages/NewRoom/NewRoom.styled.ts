@@ -32,9 +32,11 @@ export const Aside = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 120px 80px;
   img {
     max-width: 320px;
+    margin-bottom: 32px;
   }
 `;
 

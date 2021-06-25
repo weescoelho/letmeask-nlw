@@ -3,46 +3,46 @@ import styled from "styled-components";
 import { database } from "../services/firebase";
 import UserInfo from "./UserInfo";
 import deleteImg from "../assets/images/delete.svg";
+import checkImg from "../assets/images/check.svg";
+import answerImg from "../assets/images/answer.svg";
 import ModalDelete from "../components/ModalDelete";
 
 type QuestionProps = {
-  admin: boolean;
-  questionId?: string;
-  roomId?: string;
-  content: string;
-  author: {
-    name: string;
-    avatar: string;
+  question: {
+    id: string;
+    content: string;
+    author: {
+      name: string;
+      avatar: string;
+    };
+    likeCount: number;
+    likeId: string | undefined;
+    isHighlighted: boolean;
+    isAnswered: boolean;
   };
+  admin: boolean;
+  roomId: string;
   user?: {
     id: string;
     name: string;
     avatar: string;
   };
-  likeCount: number;
-  likeId: string | undefined;
 };
 
 type ButtonType = ButtonHTMLAttributes<HTMLButtonElement> & {
-  liked?: string | undefined;
+  liked?: string;
 };
 
-const Question = ({
-  content,
-  author,
-  admin,
-  questionId,
-  roomId,
-  user,
-  likeCount,
-  likeId,
-}: QuestionProps) => {
+type ContainerProps = {
+  highlighted?: boolean;
+  answered?: boolean;
+};
+
+const Question = ({ admin, roomId, user, question }: QuestionProps) => {
   const [openModal, setOpenModal] = React.useState(false);
-
-
   const handleLikeQuestion = async (
-    questionId?: string,
-    likeId?: string | undefined,
+    questionId: string,
+    likeId: string | undefined,
   ) => {
     if (likeId) {
       await database
@@ -55,28 +55,58 @@ const Question = ({
     }
   };
 
-  const handleDeleteQuestion = async (questionId?: string) => {
+  const handleCheckQuestionAsAnswered = async (questionId: string) => {
+    await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+      isAnswered: true,
+    });
+  };
+
+  const handleHighlightQuestion = async (questionId: string) => {
+    await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+      isHighlighted: true,
+    });
+  };
+
+  const handleDeleteQuestion = async (questionId: string) => {
     setOpenModal(true);
   };
 
   return (
-    <Container>
+    <Container
+      highlighted={question.isHighlighted}
+      answered={question.isAnswered}
+    >
       <ModalDelete
         open={openModal}
         setOpenModal={setOpenModal}
-        questionId={questionId}
+        questionId={question.id}
         roomId={roomId}
       />
-      <Content>{content}</Content>
+      <Content>{question.content}</Content>
       <Footer>
         <WrapperUserInfo>
-          <UserInfo avatar={author.avatar} username={author.name} />
+          <UserInfo
+            avatar={question.author.avatar}
+            username={question.author.name}
+          />
         </WrapperUserInfo>
         {admin ? (
           <WrapperAdminButtons>
             <Button
               type="button"
-              onClick={() => handleDeleteQuestion(questionId)}
+              onClick={() => handleCheckQuestionAsAnswered(question.id)}
+            >
+              <img src={checkImg} alt="Marcar uma pergunta como respondida" />
+            </Button>
+            <Button
+              type="button"
+              onClick={() => handleHighlightQuestion(question.id)}
+            >
+              <img src={answerImg} alt="Dar destaque à uma pergunta" />
+            </Button>
+            <Button
+              type="button"
+              onClick={() => handleDeleteQuestion(question.id)}
             >
               <img src={deleteImg} alt="Remover pergunta" />
             </Button>
@@ -86,10 +116,10 @@ const Question = ({
             <Button
               type="button"
               aria-label="Marcar como gostei"
-              liked={likeId}
-              onClick={() => handleLikeQuestion(questionId)}
+              liked={question.likeId}
+              onClick={() => handleLikeQuestion(question.id, question.likeId)}
             >
-              {likeCount > 0 && <span>{likeCount}</span>}
+              {question.likeCount > 0 && <span>{question.likeCount}</span>}
               <svg
                 width="24"
                 height="24"
@@ -113,15 +143,20 @@ const Question = ({
   );
 };
 
-const Container = styled.div`
-  background: ${({ theme }) => theme.colors.secondary};
+const Container = styled.div<ContainerProps>`
+  background: ${({ theme, highlighted }) =>
+    highlighted ? theme.colors.highlighted : theme.colors.secondary};
   margin-top: 32px;
   border-radius: 8px;
+  border: 1px solid
+    ${({ highlighted, theme }) => (highlighted ? theme.colors.primary : "none")};
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
   & + div {
     margin-top: 8px;
   }
+  background: ${({ theme, answered }) =>
+    answered ? theme.colors.lightGray : theme.colors.secondary};
 `;
 
 const Content = styled.p`
@@ -136,14 +171,17 @@ const Footer = styled.footer`
 
 const WrapperUserInfo = styled.div``;
 const WrapperUserButtons = styled.div``;
-const WrapperAdminButtons = styled.div``;
+const WrapperAdminButtons = styled.div`
+  display: flex;
+  gap: 16px;
+`;
 const Button = styled.button<ButtonType>`
   border: 0;
   background: transparent;
   cursor: pointer;
   display: flex;
   align-items: flex-end;
-  gap: 8px;
+  gap: 16px;
   transition: filter 0.3s ease;
   color: ${({ theme, liked }) =>
     liked ? theme.colors.primary : theme.colors.gray};

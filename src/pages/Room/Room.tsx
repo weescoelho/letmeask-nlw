@@ -77,14 +77,10 @@ const Room = () => {
         {questions.map((question) => (
           <Question
             key={question.id}
-            content={question.content}
-            author={question.author}
+            question={question}
             admin={false}
-            questionId={question.id}
             roomId={roomId}
             user={user}
-            likeCount={question.likeCount}
-            likeId={question.likeId}
           />
         ))}
       </Content>

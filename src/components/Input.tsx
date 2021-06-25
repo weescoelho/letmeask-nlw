@@ -17,6 +17,7 @@ const InputElement = styled.input`
   background: ${({ theme }) => theme.colors.secondary};
   border: 1px solid #a8a8d3;
   color:${({ theme }) => theme.colors.text};
+  font-size:1.6rem;
 `;
 
 export default Input;

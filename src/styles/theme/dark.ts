@@ -4,7 +4,9 @@ export default {
     primary: '#51BBFE',
     secondary: '#333',
     background: "#222",
+    highlighted: "#222",
     text: '#F8F8F8',
     gray:'#F8F8F8',
+    lightGray:"#444"
   }
 }

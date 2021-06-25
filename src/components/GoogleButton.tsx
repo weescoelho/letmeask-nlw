@@ -27,6 +27,7 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   transition: filter .3s ease;
+  font-size: 1.6rem;
   img{
     margin-right: 8px ;
   }

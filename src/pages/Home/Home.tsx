@@ -17,13 +17,20 @@ import {
   Subtitle,
   Title,
   LogoPageContainer,
+  SwitchContainer,
 } from "./Home.styled";
+
+import { useToasts } from "react-toast-notifications";
+import SwitchButton from "../../components/SwitchButton";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const Home = () => {
   const history = useHistory();
   const mobile = useMedia("(max-width:739px)");
   const { user, signInWithGoogle } = useAuth();
   const [roomCode, setRoomCode] = React.useState("");
+  const { addToast } = useToasts();
+  const { toggleTheme } = React.useContext(ThemeContext);
 
   const handleCreateRoom = async () => {
     if (!user) {
@@ -35,21 +42,30 @@ const Home = () => {
   // Verificação se a sala existe.
   const handleJoinRoom = async (event: FormEvent) => {
     event.preventDefault();
-    if(roomCode.trim() === '') return;
-    const roomRef = database.ref(`rooms/${roomCode}`).get()
-    if(!(await roomRef).exists()){
-      alert('Room does not exists')
+    if (roomCode.trim() === "") return;
+    const roomRef = database.ref(`rooms/${roomCode}`).get();
+    if (!(await roomRef).exists()) {
+      addToast("Esta sala não existe", {
+        appearance: "error",
+        autoDismiss: true,
+      });
       return;
     }
-    if((await roomRef).val().endedAt){
-      alert('Room already closed.')
+    if ((await roomRef).val().endedAt) {
+      addToast("A sala já foi encerrada", {
+        appearance: "info",
+        autoDismiss: true,
+      });
       return;
     }
-    history.push((`rooms/${roomCode}`))
+    history.push(`rooms/${roomCode}`);
   };
 
   return (
     <AuthPage>
+      <SwitchContainer>
+        <SwitchButton toggleTheme={toggleTheme} />
+      </SwitchContainer>
       {!mobile && (
         <Aside>
           <img

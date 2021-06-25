@@ -4,6 +4,11 @@ export default createGlobalStyle`
 :root{
   font-size:62.5%;
 }
+@media (max-width:739px){
+  :root{
+  font-size:52.5%;
+}
+}
   *{
     margin:0;
     padding:0;

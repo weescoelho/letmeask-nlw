@@ -1,7 +1,8 @@
 import React, { ButtonHTMLAttributes, Dispatch, SetStateAction } from "react";
+import { useHistory } from "react-router";
 import { useToasts } from "react-toast-notifications";
 import styled from "styled-components";
-import deleteIcon from "../assets/images/delete.svg";
+import deleteIcon from "../assets/images/delete-icon.svg";
 import Button from "../components/Button";
 import { database } from "../services/firebase";
 
@@ -14,32 +15,29 @@ interface IButton extends ButtonProps {
 type ModalDeleteProps = {
   open: boolean;
   setOpenModal: Dispatch<SetStateAction<boolean>>;
-  questionId?: string;
   roomId: string | undefined;
 };
 
-const ModalDelete = ({
-  open,
-  setOpenModal,
-  roomId,
-  questionId,
-}: ModalDeleteProps) => {
+const ModalDeleteRoom = ({ open, setOpenModal, roomId }: ModalDeleteProps) => {
   const { addToast } = useToasts();
-
-  const handleDeleteQuestion = async (questionId?: string) => {
-    await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
-    addToast("Pergunta apagada com sucesso!", {
+  const history = useHistory();
+  const handleEndRoom = async (roomId?: string) => {
+    await database.ref(`rooms/${roomId}`).update({
+      endedAt: new Date(),
+    });
+    addToast("A sala foi encerrada com sucesso!", {
       appearance: "success",
       autoDismiss: true,
     });
+    history.push("/");
   };
 
   return (
     <Container open={open}>
       <ModalWrapper>
         <Image src={deleteIcon} alt="Deletar" />
-        <h1>Excluir pergunta</h1>
-        <p>Tem certeza que você deseja excluir esta pergunta?</p>
+        <h1>Encerrar sala</h1>
+        <p>Tem certeza que você deseja encerrar esta sala?</p>
         <ButtonWrapper>
           <Button
             style={{ background: "#DBDCDD", color: "#737380", border: "none" }}
@@ -49,9 +47,9 @@ const ModalDelete = ({
           </Button>
           <Button
             style={{ background: "#E73F5D", border: "none" }}
-            onClick={() => handleDeleteQuestion(questionId)}
+            onClick={() => handleEndRoom(roomId)}
           >
-            Sim, excluir
+            Sim, encerrar.
           </Button>
         </ButtonWrapper>
       </ModalWrapper>
@@ -116,4 +114,4 @@ const ButtonWrapper = styled.div`
   margin-top: 16px;
 `;
 
-export default ModalDelete;
+export default ModalDeleteRoom;

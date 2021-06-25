@@ -32,9 +32,11 @@ export const Aside = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 120px 80px;
   img {
     max-width: 320px;
+    margin-bottom: 32px;
   }
 `;
 
@@ -80,4 +82,10 @@ export const LogoPageContainer = styled.div`
   width: 100%;
   display: flex !important;
   align-items: center !important;
+`
+
+export const SwitchContainer = styled.div`
+  position: absolute;
+  top:40px;
+  right:40px;
 `

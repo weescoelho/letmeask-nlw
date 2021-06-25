@@ -18,8 +18,18 @@ const SwitchButton: React.FC<Props> = ({ toggleTheme }) => {
       height={20}
       width={40}
       handleDiameter={20}
-      offColor='#E559F9'
-      onColor={colors.primary}
+      onColor="#735386"
+      offColor={colors.primary}
+      uncheckedHandleIcon={
+        <svg viewBox="0 0 10 10" height="100%" width="100%" fill="#92fcca">
+          <circle r={3} cx={5} cy={5} />
+        </svg>
+      }
+      checkedHandleIcon={
+        <svg viewBox="0 0 10 10" height="100%" width="100%" fill="#333">
+          <circle r={3} cx={5} cy={5} />
+        </svg>
+      }
     />
   );
 };
